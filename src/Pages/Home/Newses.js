@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Newses = ({news}) => {
-    console.log(news);
+    // console.log(news);
     return (
         <div>
             <p>{news.author.name}</p>

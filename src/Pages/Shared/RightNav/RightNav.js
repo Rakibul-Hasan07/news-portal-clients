@@ -1,14 +1,32 @@
-import React from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { FaFacebook, FaTwitch, FaTwitter, FaWhatsapp, FaTelegram, FaInstagram } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const RightNav = () => {
+    const {googleLogin} = useContext(AuthContext)
+    const googleProvider = new GoogleAuthProvider();
+    const navigate = useNavigate();
+
+    const handleGoogle =() => {
+        googleLogin(googleProvider)
+        .then(result => {
+            const user = result.user;
+            navigate('/')
+            // console.log(user);
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
     return (
         <div>
             <div className="d-grid gap-2 my-5">
-                <Button variant="outline-primary" size="lg">
+                <Button onClick={handleGoogle} variant="outline-primary" size="lg">
                     Google Login
                 </Button>
                 <Button variant="outline-dark" size="lg">
